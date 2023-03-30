@@ -1,4 +1,4 @@
-package demo.restfulWebService.model.commandModel;
+package demo.restfulWebService.model.userModel;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

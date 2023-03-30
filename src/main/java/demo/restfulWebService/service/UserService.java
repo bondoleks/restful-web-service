@@ -1,13 +1,13 @@
 package demo.restfulWebService.service;
 
-import demo.restfulWebService.model.commandModel.DbUser;
-import demo.restfulWebService.model.projectModel.Project;
-import demo.restfulWebService.model.projectModel.ProjectCommandTask;
+import demo.restfulWebService.model.historyModel.History;
+import demo.restfulWebService.model.userModel.DbUser;
 import demo.restfulWebService.repository.commandRepository.DbUserRepository;
+import demo.restfulWebService.repository.historyRepository.HistoryRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -17,6 +17,7 @@ import java.util.Optional;
 public class UserService {
 
     private final DbUserRepository dbUserRepository;
+    private final HistoryRepository historyRepository;
 
 
     public List<DbUser> read() {
@@ -29,6 +30,7 @@ public class UserService {
 
     public void save(DbUser dbUser) {
         dbUserRepository.save(dbUser);
+        historyRepository.save(new History(LocalDateTime.now() + "User created " + dbUser));
     }
 
     public boolean existsById(Long id) {
@@ -50,13 +52,12 @@ public class UserService {
         postEditUser.setRole(role);
         postEditUser.setPosition(position);
         dbUserRepository.save(postEditUser);
-
+        historyRepository.save(new History(LocalDateTime.now() + "User update  " + postEditUser));
     }
 
     public void deleteUser(Long id){
-        DbUser post = dbUserRepository.findById(id).orElseThrow();
-        dbUserRepository.delete(post);
+        DbUser deleteUser = dbUserRepository.findById(id).orElseThrow();
+        dbUserRepository.delete(deleteUser);
+        historyRepository.save(new History(LocalDateTime.now() + "User deleted " + deleteUser));
     }
-
-
 }
