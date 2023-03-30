@@ -12,8 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 @NoArgsConstructor
-@AllArgsConstructor
-public class ProjectCommand {
+public class ProjectCommandTask {
 
     @Id
     private Long Id;
@@ -23,4 +22,14 @@ public class ProjectCommand {
 
     @Column(name = "role")
     private String role;
+
+    @Column(name = "task")
+    private String task;
+
+    public ProjectCommandTask(Long id, String nameEmployee, String role, String task) {
+        Id = id;
+        this.nameEmployee = nameEmployee;
+        this.role = role;
+        this.task = task;
+    }
 }

@@ -1,4 +1,4 @@
-package demo.restfulWebService.model.commandModel.programmersModel;
+package demo.restfulWebService.model.commandModel;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Developer {
+public class DbUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -26,4 +26,13 @@ public class Developer {
     @Column(name = "role")
     private String role;
 
+    @Column(name = "position")
+    private String position;
+
+    public DbUser(String name, String surname, String role, String position) {
+        this.name = name;
+        this.surname = surname;
+        this.role = role;
+        this.position = position;
+    }
 }
