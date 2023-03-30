@@ -22,6 +22,9 @@ public class Project {
     @Column(name = "projectName")
     private String name;
 
+    @Column(name = "tasks")
+    private Long tasks;
+
     @Column(name = "projectDescription")
     private String description;
 
