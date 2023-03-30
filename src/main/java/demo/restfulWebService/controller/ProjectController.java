@@ -1,6 +1,7 @@
 package demo.restfulWebService.controller;
 
 import demo.restfulWebService.model.projectModel.Project;
+import demo.restfulWebService.model.projectModel.Task;
 import demo.restfulWebService.service.ProjectService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -45,7 +46,6 @@ public class ProjectController {
                               @RequestParam String budget, Model model){
         Project newProject = new Project(name, description, start, deadline, budget);
         projectService.save(newProject);
-        projectService.saveDefaultTaskProject(newProject.getId());
         log.info("Post : project/add, save new project" + name);
         return "redirect:/project";
     }
@@ -56,7 +56,7 @@ public class ProjectController {
             return "redirect:/project";
         }
         model.addAttribute("post", projectService.getProjectInfo(id));
-        model.addAttribute("postMoreInfo", projectService.getProjectInfoCommandTask(id));
+        model.addAttribute("postsTasks", projectService.findAllTask(id));
         log.info("Get : project/details id: " + id);
         return "project-details";
     }
@@ -67,16 +67,14 @@ public class ProjectController {
             return "redirect:/project";
         }
         model.addAttribute("post", projectService.getProjectInfo(id));
-        model.addAttribute("postMoreInfo", projectService.getProjectInfoCommandTask(id));
         log.info("Get : project/edit id: " + id);
         return "project-edit";
     }
 
     @PostMapping("/project/{id}/edit")
     public String projectPostUpdate(@PathVariable(value = "id") long id, @RequestParam String name, @RequestParam String description,
-                                 @RequestParam String start, @RequestParam String deadline, @RequestParam String budget,
-                                 @RequestParam String nameEmployee, @RequestParam String role, @RequestParam String task,  Model model){
-        projectService.projectUpdate(id, name, description, start, deadline, budget, nameEmployee, role, task);
+                                 @RequestParam String start, @RequestParam String deadline, @RequestParam String budget,  Model model){
+        projectService.projectUpdate(id, name, description, start, deadline, budget);
         log.info("Post : project/edit, save new update" + name);
         return "redirect:/project";
     }

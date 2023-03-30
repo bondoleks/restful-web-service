@@ -30,9 +30,10 @@ public class UserController {
     }
 
     @PostMapping("/user/add")
-    public String userPostAdd(@RequestParam String name, @RequestParam String surname,
+    public String userPostAdd(@RequestParam String login, @RequestParam String password,
+                              @RequestParam String name, @RequestParam String surname,
                               @RequestParam String role, @RequestParam String position,  Model model){
-        DbUser newUser = new DbUser(name, surname, role, position);
+        DbUser newUser = new DbUser(login, password, name, surname, role, position);
         userService.save(newUser);
         log.info("Post : user/add, save new user" + name);
         return "redirect:/user";

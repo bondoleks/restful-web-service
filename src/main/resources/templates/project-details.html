@@ -15,12 +15,15 @@
     <p th:text="${element.start}"></p>
     <p th:text="${element.deadline}"></p>
     <p th:text="${element.budget}"></p>
-    <div th:each="elementMore :${postMoreInfo}">
-      <h1 th:text="${elementMore.nameEmployee}"></h1>
-      <p th:text="${elementMore.role}"></p>
-      <p th:text="${elementMore.task}"></p>
+    <div class="container mt-5">
+      <h1>Task</h1>
+      <div th:each="element :${postsTasks}">
+        <h3 th:text="${element}"></h3>
+        <p th:text="${element.task}"></p>
+        <a th:href="'/task/' + ${element.id}" class="btn btn-warning">More</a></p>
+      </div>
     </div>
-    <a th:href="'/project/' + ${element.id} + '/edit'" class="btn btn-warning">Redact</a>
+    <a th:href="'/project/' + ${element.id} + '/edit'" class="btn btn-warning">Redact</a></p>
     <form th:action="'/project/' + ${element.id} + '/remove'" method="post">
       <button class="btn btn-warning" type="submit">Deleted</button>
     </form>
