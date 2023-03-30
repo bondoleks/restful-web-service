@@ -1,12 +1,15 @@
 package demo.restfulWebService.service;
 
+import demo.restfulWebService.model.historyModel.History;
 import demo.restfulWebService.model.projectModel.Project;
 import demo.restfulWebService.model.projectModel.ProjectCommandTask;
+import demo.restfulWebService.repository.historyRepository.HistoryRepository;
 import demo.restfulWebService.repository.projectRepository.ProjectCommandTaskRepository;
 import demo.restfulWebService.repository.projectRepository.ProjectRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -17,6 +20,7 @@ public class ProjectService {
 
     private final ProjectRepository projectRepository;
     private final ProjectCommandTaskRepository projectCommandTaskRepository;
+    private final HistoryRepository historyRepository;
 
     public List<Project> read() {
         return (List<Project>) projectRepository.findAll();
@@ -28,12 +32,14 @@ public class ProjectService {
 
     public void save(Project project) {
         projectRepository.save(project);
+        historyRepository.save(new History(LocalDateTime.now() + "Project created " + project));
     }
 
     public void saveDefaultTaskProject(Long id){
         ProjectCommandTask projectCommandTask = new ProjectCommandTask(id,
                 "Set name employee", "Set role", "Set task");
         projectCommandTaskRepository.save(projectCommandTask);
+        historyRepository.save(new History(LocalDateTime.now() + "Project command task created " + projectCommandTask));
     }
 
     public boolean existsById(Long id) {
@@ -70,6 +76,7 @@ public class ProjectService {
         postEditCommandTaskProject.setRole(role);
         postEditCommandTaskProject.setTask(task);
         projectCommandTaskRepository.save(postEditCommandTaskProject);
+        historyRepository.save(new History(LocalDateTime.now() + "Project update " + postEditProject + postEditCommandTaskProject));
     }
 
     public void deleteProject(Long id){
@@ -77,6 +84,7 @@ public class ProjectService {
         projectRepository.delete(deleteProject);
         ProjectCommandTask deleteCommandTaskProject = projectCommandTaskRepository.findById(id).orElseThrow();
         projectCommandTaskRepository.delete(deleteCommandTaskProject);
+        historyRepository.save(new History(LocalDateTime.now() + "Project deleted " + deleteProject + deleteCommandTaskProject));
     }
 
 

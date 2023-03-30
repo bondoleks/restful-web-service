@@ -1,18 +1,12 @@
 package demo.restfulWebService.controller;
 
-import demo.restfulWebService.model.commandModel.DbUser;
-import demo.restfulWebService.repository.commandRepository.DbUserRepository;
-import demo.restfulWebService.service.ProjectService;
+import demo.restfulWebService.model.userModel.DbUser;
 import demo.restfulWebService.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.Optional;
 
 @Controller
 @AllArgsConstructor
