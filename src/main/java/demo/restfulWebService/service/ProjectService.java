@@ -56,14 +56,10 @@ public class ProjectService {
         return result;
     }
 
-    public void projectUpdate(Long id, String name, String description,
-                              String start, String deadline, String budget){
+    public void projectUpdate(Long id, String name, String description){
         Project postEditProject = projectRepository.findById(id).orElseThrow();
         postEditProject.setName(name);
         postEditProject.setDescription(description);
-        postEditProject.setStart(start);
-        postEditProject.setDeadline(deadline);
-        postEditProject.setBudget(budget);
         projectRepository.save(postEditProject);
 
         historyRepository.save(new History(LocalDateTime.now() + "Project update " + postEditProject));

@@ -41,10 +41,8 @@ public class ProjectController {
     }
 
     @PostMapping("/project/add")
-    public String projectPostAdd(@RequestParam String name, @RequestParam String description,
-                              @RequestParam String start, @RequestParam String deadline,
-                              @RequestParam String budget, Model model){
-        Project newProject = new Project(name, description, start, deadline, budget);
+    public String projectPostAdd(@RequestParam String name, @RequestParam String description, Model model){
+        Project newProject = new Project(name, description);
         projectService.save(newProject);
         log.info("Post : project/add, save new project" + name);
         return "redirect:/project";
@@ -72,9 +70,9 @@ public class ProjectController {
     }
 
     @PostMapping("/project/{id}/edit")
-    public String projectPostUpdate(@PathVariable(value = "id") long id, @RequestParam String name, @RequestParam String description,
-                                 @RequestParam String start, @RequestParam String deadline, @RequestParam String budget,  Model model){
-        projectService.projectUpdate(id, name, description, start, deadline, budget);
+    public String projectPostUpdate(@PathVariable(value = "id") long id, @RequestParam String name,
+                                    @RequestParam String description, Model model){
+        projectService.projectUpdate(id, name, description);
         log.info("Post : project/edit, save new update" + name);
         return "redirect:/project";
     }
