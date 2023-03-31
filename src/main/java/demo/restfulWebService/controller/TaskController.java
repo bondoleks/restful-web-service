@@ -19,12 +19,12 @@ public class TaskController {
 
     private final TaskService taskService;
 
-    @GetMapping("/tasks")
+    @GetMapping("/task")
     public String task(Model model){
         log.info("Get : tasks");
         Iterable<Task> posts = taskService.findAll();
         model.addAttribute("posts", posts);
-        return "tasks";
+        return "task";
     }
 
     @GetMapping("/task/add")
@@ -38,14 +38,14 @@ public class TaskController {
                               @RequestParam String task, Model model){
         taskService.save(nameProject, loginEmployee, task);
         log.info("Post : task/add, save new task" + task);
-        return "redirect:/tasks";
+        return "redirect:/task";
     }
 
     @GetMapping("/task/{id}")
     public String taskDetails(@PathVariable(value = "id") long id, Model model){
-        if(!taskService.existsById(id)){
-            return "redirect:/tasks";
-        }
+//        if(!taskService.existsById(id)){
+//            return "redirect:/tasks";
+//        }
         model.addAttribute("post", taskService.getTaskInfo(id));
         model.addAttribute("postUser", taskService.getUserInfo(id));
         log.info("Get : task/details id: " + id);
@@ -54,10 +54,11 @@ public class TaskController {
 
     @GetMapping("/task/{id}/edit")
     public String taskEdit(@PathVariable(value = "id") long id, Model model){
-        if(!taskService.existsById(id)){
-            return "redirect:/task";
-        }
+//        if(!taskService.existsById(id)){
+//            return "redirect:/task";
+//        }
         model.addAttribute("post", taskService.getTaskInfo(id));
+        model.addAttribute("postUser", taskService.getUserInfo(id));
         log.info("Get : task/edit id: " + id);
         return "task-edit";
     }
@@ -65,9 +66,9 @@ public class TaskController {
     @PostMapping("/task/{id}/edit")
     public String taskPostUpdate(@PathVariable(value = "id") long id, @RequestParam String task,
                                     @RequestParam String loginEmployee,  Model model){
-        taskService.taskUpdate(id, loginEmployee, task);
+        taskService.taskUpdate(id, task, loginEmployee);
         log.info("Post : task/edit, save new update" + task);
-        return "redirect:/tasks";
+        return "redirect:/task";
     }
 
     @PostMapping("/task/{id}/remove")

@@ -1,7 +1,6 @@
 package demo.restfulWebService.service;
 
 import demo.restfulWebService.model.historyModel.History;
-import demo.restfulWebService.model.projectModel.Project;
 import demo.restfulWebService.model.projectModel.Task;
 import demo.restfulWebService.model.userModel.DbUser;
 import demo.restfulWebService.repository.commandRepository.DbUserRepository;
@@ -53,7 +52,7 @@ public class TaskService {
     }
 
     public DbUser getUserInfo(Long id) {
-        return dbUserRepository.getById(id);
+        return dbUserRepository.getById(taskRepository.getReferenceById(id).getIdUser());
     }
 
     public void taskUpdate(Long id, String task, String loginEmployee){

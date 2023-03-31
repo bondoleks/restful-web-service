@@ -6,9 +6,15 @@ import demo.restfulWebService.service.ProjectService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
+
+import java.nio.file.AccessDeniedException;
 
 
 @Controller
@@ -50,9 +56,9 @@ public class ProjectController {
 
     @GetMapping("/project/{id}")
     public String projectDetails(@PathVariable(value = "id") long id, Model model){
-        if(!projectService.existsById(id)){
-            return "redirect:/project";
-        }
+//        if(!projectService.existsById(id)){
+//            return "redirect:/project";
+//        }
         model.addAttribute("post", projectService.getProjectInfo(id));
         model.addAttribute("postsTasks", projectService.findAllTask(id));
         log.info("Get : project/details id: " + id);
@@ -61,9 +67,9 @@ public class ProjectController {
 
     @GetMapping("/project/{id}/edit")
     public String projectEdit(@PathVariable(value = "id") long id, Model model){
-        if(!projectService.existsById(id)){
-            return "redirect:/project";
-        }
+//        if(!projectService.existsById(id)){
+//            return "redirect:/project";
+//        }
         model.addAttribute("post", projectService.getProjectInfo(id));
         log.info("Get : project/edit id: " + id);
         return "project-edit";
