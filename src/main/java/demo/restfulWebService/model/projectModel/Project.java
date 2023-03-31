@@ -28,20 +28,8 @@ public class Project {
     @Column(name = "projectDescription")
     private String description;
 
-    @Column(name = "projectStart")
-    private String start;
-
-    @Column(name = "projectDeadline")
-    private String deadline;
-
-    @Column(name = "projectBudget")
-    private String budget;
-
-    public Project(String name, String description, String start, String deadline, String budget) {
+    public Project(String name, String description) {
         this.name = name;
         this.description = description;
-        this.start = start;
-        this.deadline = deadline;
-        this.budget = budget;
     }
 }
