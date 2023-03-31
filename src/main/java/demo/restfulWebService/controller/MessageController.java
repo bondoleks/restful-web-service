@@ -22,6 +22,7 @@ public class MessageController {
     @GetMapping("/chat")
     public String userEdit(Model model){
         model.addAttribute("post", messageService.findAll());
+        log.info("Get : chat");
         return "chat";
     }
 
@@ -31,6 +32,7 @@ public class MessageController {
         // Add info from User
         Message newMessage = new Message(1l, localDateTime + message);
         messageService.save(newMessage);
+        log.info("Post : chat message " + message);
         return "redirect:/chat";
     }
 
