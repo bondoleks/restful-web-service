@@ -21,7 +21,7 @@
       </div>
     </div>
     <a th:href="'/task/add'" class="btn btn-warning">Add task</a></p>
-    <a th:href="'/project/' + ${element.id} + '/edit'" class="btn btn-warning">Redact</a></p>
+    <a th:href="'/project/' + ${element.id} + '/edit'" class="btn btn-warning">Redact</a></p><br>
     <form th:action="'/project/' + ${element.id} + '/remove'" method="post">
       <button class="btn btn-warning" type="submit">Deleted</button>
     </form>

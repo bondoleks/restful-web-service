@@ -1,16 +1,13 @@
 package demo.restfulWebService.model.historyModel;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@Builder
 @NoArgsConstructor
-@AllArgsConstructor
+@Table(name = "history")
 public class History {
 
     @Id

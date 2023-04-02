@@ -1,13 +1,13 @@
 package demo.restfulWebService.model.projectModel;
 
 import jakarta.persistence.*;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Data
 @NoArgsConstructor
+@Table(name = "task")
 public class Task {
 
     @Id

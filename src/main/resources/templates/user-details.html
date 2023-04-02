@@ -15,7 +15,7 @@
         <p th:text="${element.surname}"></p>
         <p th:text="${element.role}"></p>
         <p th:text="${element.position}"></p>
-        <a th:href="'/user/' + ${element.id} + '/edit'" class="btn btn-warning">Redact</a>
+        <a th:href="'/user/' + ${element.id} + '/edit'" class="btn btn-warning">Redact</a><br>
         <form th:action="'/user/' + ${element.id} + '/remove'" method="post">
             <button class="btn btn-warning" type="submit">Deleted</button>
         </form>

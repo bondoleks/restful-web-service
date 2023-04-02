@@ -41,9 +41,7 @@ public class UserController {
 
     @GetMapping("/user/{id}")
     public String userDetails(@PathVariable(value = "id") long id, Model model){
-//        if(!userService.existsById(id)){
-//            return "redirect:/blog";
-//        }
+
         model.addAttribute("post", userService.getUserInfo(id));
         log.info("Get : user/details id: " + id);
         return "user-details";
@@ -51,9 +49,7 @@ public class UserController {
 
     @GetMapping("/user/{id}/edit")
     public String userEdit(@PathVariable(value = "id") long id, Model model){
-//        if(!userService.existsById(id)){
-//            return "redirect:/user";
-//        }
+
         model.addAttribute("post", userService.getUserInfo(id));
         log.info("Get : user/edit id: " + id);
         return "user-edit";

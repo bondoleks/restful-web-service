@@ -16,7 +16,7 @@
             <h3 th:text="${postUser}"></h3>
             <a th:href="'/user/' + ${postUser.getId()}" class="btn btn-warning">More</a></p>
         </div>
-        <a th:href="'/task/' + ${element.id} + '/edit'" class="btn btn-warning">Redact</a>
+        <a th:href="'/task/' + ${element.id} + '/edit'" class="btn btn-warning">Redact</a><br>
         <form th:action="'/task/' + ${element.id} + '/remove'" method="post">
             <button class="btn btn-warning" type="submit">Deleted</button>
         </form>

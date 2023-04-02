@@ -1,23 +1,18 @@
 package demo.restfulWebService.model.projectModel;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-
 @Entity
 @Data
-@Builder
 @NoArgsConstructor
-@AllArgsConstructor
+@Table(name = "project")
 public class Project {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long Id;
+    private Long id;
 
     @Column(name = "projectName")
     private String name;
