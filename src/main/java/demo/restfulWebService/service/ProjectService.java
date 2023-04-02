@@ -22,10 +22,6 @@ public class ProjectService {
     private final TaskRepository taskRepository;
     private final HistoryRepository historyRepository;
 
-    public List<Project> read() {
-        return (List<Project>) projectRepository.findAll();
-    }
-
     public Iterable<Project> findAll() {
         return projectRepository.findAll();
     }
@@ -38,35 +34,35 @@ public class ProjectService {
         historyRepository.save(new History(LocalDateTime.now() + "Project created " + project));
     }
 
-    public boolean existsById(Long id) {
-        return projectRepository.existsById(id);
-    }
-
     public ArrayList<Project> getProjectInfo(Long id) {
+        Long checkId = id;
+        if(!projectRepository.existsById(id)){
+            checkId = 0L;
+        }
         ArrayList<Project> result = new ArrayList<>();
-        Optional<Project> post = projectRepository.findById(id);
-        post.ifPresent(result::add);
-        return result;
-    }
-
-    public ArrayList<Task> getProjectTaskInfo(Long id) {
-        ArrayList<Task> result = new ArrayList<>();
-        Optional<Task> post = taskRepository.findById(id);
+        Optional<Project> post = projectRepository.findById(checkId);
         post.ifPresent(result::add);
         return result;
     }
 
     public void projectUpdate(Long id, String name, String description){
-        Project postEditProject = projectRepository.findById(id).orElseThrow();
+        Long checkId = id;
+        if(!projectRepository.existsById(id)){
+            checkId = 0L;
+        }
+        Project postEditProject = projectRepository.findById(checkId).orElseThrow();
         postEditProject.setName(name);
         postEditProject.setDescription(description);
         projectRepository.save(postEditProject);
-
         historyRepository.save(new History(LocalDateTime.now() + "Project update " + postEditProject));
     }
 
     public void deleteProject(Long id){
-        Project deleteProject = projectRepository.findById(id).orElseThrow();
+        Long checkId = id;
+        if(!projectRepository.existsById(id)){
+            checkId = 0L;
+        }
+        Project deleteProject = projectRepository.findById(checkId).orElseThrow();
         projectRepository.delete(deleteProject);
         List<Task> listDeletedTasks = taskRepository.findDistinctByIdProjectEquals(id);
         taskRepository.deleteAllInBatch(listDeletedTasks);

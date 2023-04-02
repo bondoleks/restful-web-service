@@ -3,7 +3,7 @@ package demo.restfulWebService.service;
 import demo.restfulWebService.model.historyModel.History;
 import demo.restfulWebService.model.projectModel.Task;
 import demo.restfulWebService.model.userModel.DbUser;
-import demo.restfulWebService.repository.commandRepository.DbUserRepository;
+import demo.restfulWebService.repository.userRepository.DbUserRepository;
 import demo.restfulWebService.repository.historyRepository.HistoryRepository;
 import demo.restfulWebService.repository.projectRepository.TaskRepository;
 import demo.restfulWebService.repository.projectRepository.ProjectRepository;
@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -23,10 +22,6 @@ public class TaskService {
     private final TaskRepository taskRepository;
     private final HistoryRepository historyRepository;
     private final DbUserRepository dbUserRepository;
-
-    public List<Task> read() {
-        return (List<Task>) taskRepository.findAll();
-    }
 
     public Iterable<Task> findAll() {
         return taskRepository.findAll();
@@ -40,23 +35,31 @@ public class TaskService {
         historyRepository.save(new History(LocalDateTime.now() + "Task created " + taskObject));
     }
 
-    public boolean existsById(Long id) {
-        return projectRepository.existsById(id);
-    }
-
     public ArrayList<Task> getTaskInfo(Long id) {
+        Long checkId = id;
+        if(!taskRepository.existsById(id)){
+            checkId = 0L;
+        }
         ArrayList<Task> result = new ArrayList<>();
-        Optional<Task> post = taskRepository.findById(id);
+        Optional<Task> post = taskRepository.findById(checkId);
         post.ifPresent(result::add);
         return result;
     }
 
     public DbUser getUserInfo(Long id) {
-        return dbUserRepository.getById(taskRepository.getReferenceById(id).getIdUser());
+        Long checkId = id;
+        if(!taskRepository.existsById(id)){
+            checkId = 0L;
+        }
+        return dbUserRepository.getById(taskRepository.getReferenceById(checkId).getIdUser());
     }
 
     public void taskUpdate(Long id, String task, String loginEmployee){
-        Task postTask = taskRepository.findById(id).orElseThrow();
+        Long checkId = id;
+        if(!taskRepository.existsById(id)){
+            checkId = 0L;
+        }
+        Task postTask = taskRepository.findById(checkId).orElseThrow();
         postTask.setIdUser(dbUserRepository.getDbUserByLogin(loginEmployee).getId());
         postTask.setTask(task);
         taskRepository.save(postTask);
@@ -64,7 +67,11 @@ public class TaskService {
     }
 
     public void deleteTask(Long id){
-        Task deleteCommandTaskProject = taskRepository.findById(id).orElseThrow();
+        Long checkId = id;
+        if(!taskRepository.existsById(id)){
+            checkId = 0L;
+        }
+        Task deleteCommandTaskProject = taskRepository.findById(checkId).orElseThrow();
         taskRepository.delete(deleteCommandTaskProject);
         historyRepository.save(new History(LocalDateTime.now() + "Task deleted " + deleteCommandTaskProject));
     }

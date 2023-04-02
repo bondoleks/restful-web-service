@@ -1,23 +1,20 @@
 package demo.restfulWebService.model.userModel;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@Builder
 @NoArgsConstructor
-@AllArgsConstructor
+@Table(name = "db_user")
 public class DbUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long Id;
+    private Long id;
 
-    @Column(name = "login")
+    @Column(name = "login", unique = true)
     private String login;
 
     @Column(name = "password")
@@ -29,11 +26,11 @@ public class DbUser {
     @Column(name = "surname")
     private String surname;
 
-    @Column(name = "role")
-    private String role;
-
     @Column(name = "position")
     private String position;
+
+    @Column(name = "role")
+    private String role;
 
     public DbUser(String login, String password, String name, String surname, String role, String position) {
         this.login = login;

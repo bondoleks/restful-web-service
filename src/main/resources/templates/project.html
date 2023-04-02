@@ -12,8 +12,9 @@
     <div th:each="element :${posts}">
         <h3 th:text="${element.name}"></h3>
         <p th:text="${element.description}"></p>
-        <a th:href="'/project/' + ${element.id}" class="btn btn-warning">More</a>
+        <a th:href="'/project/' + ${element.id}" class="btn btn-warning">More</a><br>
     </div>
+    <a th:href="'/project/add'" class="btn btn-warning">Add project</a>
 </div>
 </main>
 <div th:insert="~{blocks/footer :: footer}"></div>

@@ -1,16 +1,12 @@
 package demo.restfulWebService.controller;
 
-import demo.restfulWebService.model.projectModel.Project;
 import demo.restfulWebService.model.projectModel.Task;
-import demo.restfulWebService.service.ProjectService;
 import demo.restfulWebService.service.TaskService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 
 @Controller
 @AllArgsConstructor
@@ -43,9 +39,7 @@ public class TaskController {
 
     @GetMapping("/task/{id}")
     public String taskDetails(@PathVariable(value = "id") long id, Model model){
-//        if(!taskService.existsById(id)){
-//            return "redirect:/tasks";
-//        }
+
         model.addAttribute("post", taskService.getTaskInfo(id));
         model.addAttribute("postUser", taskService.getUserInfo(id));
         log.info("Get : task/details id: " + id);
@@ -54,9 +48,7 @@ public class TaskController {
 
     @GetMapping("/task/{id}/edit")
     public String taskEdit(@PathVariable(value = "id") long id, Model model){
-//        if(!taskService.existsById(id)){
-//            return "redirect:/task";
-//        }
+
         model.addAttribute("post", taskService.getTaskInfo(id));
         model.addAttribute("postUser", taskService.getUserInfo(id));
         log.info("Get : task/edit id: " + id);
